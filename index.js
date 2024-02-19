@@ -8,8 +8,9 @@ const paymentRouter = require("./routers/paymentRouter.js");
 const invoiceRouter = require("./routers/invoiceRouter.js")
 const dbConnect = require("./config/dbConnect.js");
 dotenv.config();
+const cors = require('cors')
 app.use(express.json());
-
+app.use(cors())
 dbConnect();
 
 require('./start/routes.js')(app)
