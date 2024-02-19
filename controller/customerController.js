@@ -11,7 +11,7 @@ const addNewCustomer = asyncHandler(async (req, res) => {
   if (error) return res.status(400).send(error.details[0].message);
 
   let customer = new Customer({
-    cname: req.body.name,
+    cname: req.body.cname,
     email: req.body.email,
     phone: req.body.phone,
     location: req.body.location,

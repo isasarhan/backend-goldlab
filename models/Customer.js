@@ -8,6 +8,8 @@ const customerSchema = new Schema({
   phone: { type: String },
   location: { type: String },
 });
+const Customer = model("Customer", customerSchema);
+
 function validateCustomer(customer) {
   const schema = Joi.object({
     id: Joi.objectId(),
@@ -16,9 +18,8 @@ function validateCustomer(customer) {
     phone: Joi.string(),
     location: Joi.string(),
   });
-
+  
   return schema.validate(customer);
 }
 
-const Customer = model("Customer", customerSchema);
 module.exports = { Customer, validateCustomer };
