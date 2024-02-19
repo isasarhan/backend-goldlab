@@ -11,7 +11,7 @@ const customerSchema = new Schema({
 function validateCustomer(customer) {
   const schema = Joi.object({
     id: Joi.objectId(),
-    name: Joi.string().min(5),
+    cname: Joi.string().min(5),
     email: Joi.string().email(),
     phone: Joi.string(),
     location: Joi.string(),
