@@ -8,7 +8,7 @@ const getOrders = asyncHandler(async (req, res) => {
   if (!orders) return res.status(404).send("error retreving orders!");
   return res.json(orders).status(200);
 });
-
+ 
 const getOrderById = asyncHandler(async (req, res) => {
   const id = req.params.id;
   const order = await Order.findById(id);

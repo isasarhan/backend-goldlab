@@ -21,9 +21,9 @@ const addInvoice = asyncHandler(async (req, res) => {
   const customer = await getCustomerName(req.body.customerid);
 
   const invoice = new Invoice({
-    customer: {
+    customer: { 
       customerid: customer.id,
-      name: customer.cname,
+      cname: customer.cname,
     },
     date: req.body.date,
     invoiceNumber: req.body.invoiceNumber,
