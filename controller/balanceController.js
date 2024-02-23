@@ -18,7 +18,7 @@ const getBalanceByCustomerId = asyncHandler(async (req, res) => {
   const customerid = req.params.id;
   const balance = await Balance.find({
     "customer.customerid": customerid,
-  });
+  }).limit(1);
   if (!balance) return res.send("no balance found!").status(404);
   res.status(200).json(balance);
 });
@@ -49,13 +49,17 @@ const updateBalance = asyncHandler(async (req, res) => {
   });
   if (error) return res.status(400).send(error.details[0].message);
 
-  const balance = await Balance.findByIdAndUpdate(req.params.id, {
-    customer: {},
+  const balance = await Balance.findByIdAndUpdate(id, {
+    customer: {
+      customerid: req.body.customerid,
+    },
+    gold: req.body.gold,
+    cash: req.body.cash,
   });
 
   if (!balance) return res.status(404).send("balance not found!");
 
-  res.status(200).send("no error");
+  res.status(200).json(balance);
 });
 
 const deleteBalance = asyncHandler(async (req, res) => {
