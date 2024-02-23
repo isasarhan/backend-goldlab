@@ -6,6 +6,7 @@ const {
   updateBalance,
   getBalanceById,
   deleteBalance,
+  getBalanceByCustomerId,
 } = require("../controller/balanceController.js");
 
 router.get("/", getBalances).post("/", addNewBalance);
@@ -14,5 +15,5 @@ router
   .get(getBalanceById)
   .put(updateBalance)
   .delete(deleteBalance);
-
+router.route("/customer/:id").get(getBalanceByCustomerId)
 module.exports = router;

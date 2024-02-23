@@ -14,6 +14,14 @@ const getBalanceById = asyncHandler(async (req, res) => {
   if (!balance) return res.send("no balance found!").status(404);
   res.status(200).json(balance);
 });
+const getBalanceByCustomerId = asyncHandler(async (req, res) => {
+  const customerid = req.params.id;
+  const balance = await Balance.find({
+    "customer.customerid": customerid,
+  });
+  if (!balance) return res.send("no balance found!").status(404);
+  res.status(200).json(balance);
+});
 
 const addNewBalance = asyncHandler(async (req, res) => {
   const { error } = validateBalance(req.body);
@@ -60,6 +68,7 @@ const deleteBalance = asyncHandler(async (req, res) => {
 module.exports = {
   getBalances,
   getBalanceById,
+  getBalanceByCustomerId,
   addNewBalance,
   updateBalance,
   deleteBalance,
