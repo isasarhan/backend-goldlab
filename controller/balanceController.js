@@ -49,13 +49,17 @@ const updateBalance = asyncHandler(async (req, res) => {
   });
   if (error) return res.status(400).send(error.details[0].message);
 
-  const balance = await Balance.findByIdAndUpdate(id, {
-    customer: {
-      customerid: req.body.customerid,
+  const balance = await Balance.findByIdAndUpdate(
+    id,
+    {
+      customer: {
+        customerid: req.body.customerid,
+      },
+      gold: req.body.gold,
+      cash: req.body.cash,
     },
-    gold: req.body.gold,
-    cash: req.body.cash,
-  });
+    { new: true }
+  );
 
   if (!balance) return res.status(404).send("balance not found!");
 

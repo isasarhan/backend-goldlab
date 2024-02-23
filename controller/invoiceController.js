@@ -52,7 +52,8 @@ const updateInvoiceById = asyncHandler(async (req, res) => {
     totalCash: req.body.totalCash,
     totalWeight: req.body.totalWeight,
     date: req.body.date,
-  });
+  },
+  { new: true });
 
   res.json(invoice).status(200);
 });

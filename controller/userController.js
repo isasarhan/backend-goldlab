@@ -29,7 +29,8 @@ const updateUserById = asyncHandler(async (req, res) => {
     password: req.body.password,
     createdAt: req.body.createdAt,
     profileImg: req.body.profileImg,
-  });
+  },
+  { new: true });
   res.json(user).status(200);
 });
 

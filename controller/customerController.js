@@ -19,12 +19,12 @@ const addNewCustomer = asyncHandler(async (req, res) => {
   let result = await customer.save();
   res.status(200).json(result);
 });
-const getCustomerName = async(customerid) => {
-  const customer = await Customer.findById(customerid).select('id cname');
-  
+const getCustomerName = async (customerid) => {
+  const customer = await Customer.findById(customerid).select("id cname");
+
   if (!customer) throw new Error(customer.errors.message);
-  
-  return customer
+
+  return customer;
 };
 const getCustomerById = asyncHandler(async (req, res) => {
   const customer = await Customer.findById(req.params.id);
@@ -34,12 +34,16 @@ const getCustomerById = asyncHandler(async (req, res) => {
 
 const updateCustomer = asyncHandler(async (req, res) => {
   const id = req.params.id;
-  const customer = await Customer.findByIdAndUpdate(id, {
-    cname: req.body.name,
-    email: req.body.email,
-    location: req.body.location,
-    phone: req.body.phone,
-  });
+  const customer = await Customer.findByIdAndUpdate(
+    id,
+    {
+      cname: req.body.name,
+      email: req.body.email,
+      location: req.body.location,
+      phone: req.body.phone,
+    },
+    { new: true }
+  );
   if (!customer) return res.status(404).send("customer not found");
 
   res.json(customer).status(200);
@@ -57,5 +61,5 @@ module.exports = {
   getCustomerById,
   updateCustomer,
   deleteCustomer,
-  getCustomerName
+  getCustomerName,
 };
