@@ -14,6 +14,16 @@ const getInvoiceById = asyncHandler(async (req, res) => {
   if (!invoice) return res.send("invoice not found!").send(404);
   res.json(invoice).status(200);
 });
+const getInvoicesByCustomerId = asyncHandler(async(req,res)=>{
+  const id = req.params.id
+  const customer = await getCustomerName(id);
+  if(!customer) return res.status(404).send("customer not found!")
+  const invoices = await Invoice.find({
+    "customer.customerid": id,
+  })
+  if (!invoices) return res.send("no invoices found!").status(404);
+  res.status(200).json(invoices);
+})
 const addInvoice = asyncHandler(async (req, res) => {
   const { error } = validateInvoice(req.body);
   if (error) return res.send(error.details[0].message).status(400);
@@ -66,6 +76,7 @@ const deleteInvoice = asyncHandler(async (req, res) => {
 module.exports = {
   getInvoices,
   getInvoiceById,
+  getInvoicesByCustomerId,
   addInvoice,
   deleteInvoice,
   updateInvoiceById,
