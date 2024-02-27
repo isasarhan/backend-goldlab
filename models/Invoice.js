@@ -18,6 +18,10 @@ const InvoiceSchema = new Schema({
         type: ObjectId,
         required: true,
       },
+    //   {
+    //     type: Schema.Types.ObjectId,
+    //     ref: 'Order'
+    // }
     },
   ],
   totalWeight: { type: Number },

@@ -14,6 +14,7 @@ const schema = new Schema(
     karat: { type: Number },
     cash: { type: Number },
     currency: { type: String },
+    description: { type: String },
   },
   { timestamps: true }
 );
@@ -27,6 +28,7 @@ function validatePayment(payment) {
     karat: Joi.number(),
     cash: Joi.number(),
     currency: Joi.string(),
+    description: Joi.string(),
   });
   return schema.validate(payment);
 }

@@ -57,6 +57,7 @@ const addPayment = asyncHandler(async (req, res) => {
     currency: req.body.currency,
     karat: req.body.karat,
     weight: req.body.weight,
+    description: req.body.description,
   });
   const result = await payment.save();
   res.json(result).status(200);
