@@ -32,6 +32,7 @@ const getPaymentByCustomerIdBetweenDates = asyncHandler(async (req, res) => {
     customerid
       ? {
           "customer.customerid": customerid,
+          date: { $gte: startDate, $lte: endDate },
         }
       : { date: { $gte: startDate, $lte: endDate } }
   );
@@ -45,7 +46,6 @@ const addPayment = asyncHandler(async (req, res) => {
   if (error) return res.status(400).json(error.details[0].message);
 
   const customer = await getCustomerName(req.body.customerid);
-
 
   const payment = new Payment({
     customer: {
