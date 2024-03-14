@@ -10,7 +10,7 @@ const {
 const { authenticate } = require("../middleware/authMiddleware.js");
 const { authorize } = require("../middleware/adminMiddleware.js");
 
-router.route("/").get(authenticate,getAllCustomers).post(addNewCustomer);
+router.route("/").get(getAllCustomers).post(addNewCustomer);
 router
   .route("/:id")
   .get(getCustomerById)
