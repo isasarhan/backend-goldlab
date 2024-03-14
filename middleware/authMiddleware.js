@@ -21,7 +21,7 @@ const authenticate = asyncHandler(async (req, res, next) => {
       throw new Error("Not authirized! Token failed.");
     }
   }
-  if (!token) {
+  if (!token) { 
     res.status(401);
     throw new Error("Not authorized! No Token");
   }

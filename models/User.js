@@ -13,10 +13,7 @@ const UserSchema = new Schema({
   password: { type: String, required: true, min: 10, max: 1024 },
   profileImg: { type: String },
   isAdmin: { type: Boolean, default: false },
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  },
+
 });
 
 UserSchema.pre("save", async function (next) {
@@ -37,7 +34,6 @@ function validateUser(user) {
     password: Joi.string().min(10).max(1024),
     profileImg: Joi.string(),
     isAdmin: Joi.boolean(),
-    createdAt: Joi.date(),
   });
   return schema.validate(user);
 }

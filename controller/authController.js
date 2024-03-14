@@ -4,13 +4,12 @@ const jwt = require("jsonwebtoken");
 
 const userRegister = asyncHandler(async (req, res) => {
   const { error } = validateUser(req.body);
-  if (error) return res.send("invalid user data!").status(400);
+  if (error) return res.send(error.details[0].message).status(400);
   const user = new User({
     username: req.body.username,
     isAdmin: req.body.isAdmin,
     email: req.body.email,
     password: req.body.password,
-    createdAt: req.body.createdAt,
     profileImg: req.body.profileImg,
   });
   const result = await user.save();
@@ -25,7 +24,7 @@ const userLogin = asyncHandler(async (req, res) => {
   if (!user || !(await user.matchPassword(password))) {
     res.status(404);
     throw new Error("Invalid Email or Password!");
-  }
+  } 
   res
     .json({
       email: email,
