@@ -3,14 +3,14 @@ const { User, validateUser } = require("../models/User");
 const jwt = require("jsonwebtoken");
 
 const userRegister = asyncHandler(async (req, res) => {
-  const { error } = validateUser(req.body);
-  if (error) return res.send(error.details[0].message).status(400);
+  // const { error } = validateUser(req.body);
+  // if (error) return res.send(error.details[0].message).status(400);
   const user = new User({
     username: req.body.username,
     isAdmin: req.body.isAdmin,
     email: req.body.email,
     password: req.body.password,
-    profileImg: req.file.path,
+    profileImg: req.file.filename,
   });
   const result = await user.save();
   if (!result) return res.send("error registering user!").status(400);
