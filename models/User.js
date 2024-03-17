@@ -13,20 +13,20 @@ const UserSchema = new Schema({
   password: { type: String, required: true, min: 10, max: 1024 },
   profileImg: { type: String },
   isAdmin: { type: Boolean, default: false },
-
 });
 
 UserSchema.pre("save", async function (next) {
   const salt = await bcrypt.genSalt(10);
   this.password = await bcrypt.hash(this.password, salt);
-  console.log(this.password);
   next();
 });
 
 UserSchema.methods.matchPassword = async function (enteredPassword) {
-    return await bcrypt.compare(enteredPassword, this.password);
-  };
+  return await bcrypt.compare(enteredPassword, this.password);
+};
+
 const User = model("User", UserSchema);
+
 function validateUser(user) {
   const schema = Joi.object({
     email: Joi.string().email(),

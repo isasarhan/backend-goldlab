@@ -10,7 +10,7 @@ const userRegister = asyncHandler(async (req, res) => {
     isAdmin: req.body.isAdmin,
     email: req.body.email,
     password: req.body.password,
-    profileImg: req.body.profileImg,
+    profileImg: req.file.path,
   });
   const result = await user.save();
   if (!result) return res.send("error registering user!").status(400);
@@ -24,9 +24,12 @@ const userLogin = asyncHandler(async (req, res) => {
   if (!user || !(await user.matchPassword(password))) {
     res.status(404);
     throw new Error("Invalid Email or Password!");
-  } 
+  }
   res
     .json({
+      profileImg: user.profileImg,
+      username: user.username,
+      isAdmin: user.isAdmin,
       email: email,
       token: generateToken(user._id),
     })
