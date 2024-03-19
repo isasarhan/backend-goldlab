@@ -34,6 +34,7 @@ function validateUser(user) {
     password: Joi.string().min(10).max(1024),
     profileImg: Joi.string(),
     isAdmin: Joi.boolean(),
+    file:Joi.allow()
   });
   return schema.validate(user);
 }

@@ -1,18 +1,26 @@
 const asyncHandler = require("express-async-handler");
 const { User, validateUser } = require("../models/User");
 const jwt = require("jsonwebtoken");
+const { isUserExist } = require("./userController");
 
 const userRegister = asyncHandler(async (req, res) => {
-  // const { error } = validateUser(req.body);
-  // if (error) return res.send(error.details[0].message).status(400);
+  const { error } = validateUser(req.body);
+  if (error) return res.json({ error: error.details[0].message }).status(400);
+
+  if (isUserExist(req.body.email)) 
+  throw new Error("user already exist!");
+  // return res.status(403).json({error:"user already exist"})
+
   const user = new User({
     username: req.body.username,
     isAdmin: req.body.isAdmin,
     email: req.body.email,
     password: req.body.password,
-    profileImg: req.file.filename,
+    profileImg: req.file ? req.file.filename : " ",
   });
+
   const result = await user.save();
+
   if (!result) return res.send("error registering user!").status(400);
   res.json(result).status(200);
 });
@@ -27,6 +35,7 @@ const userLogin = asyncHandler(async (req, res) => {
   }
   res
     .json({
+      id: user._id,
       profileImg: user.profileImg,
       username: user.username,
       isAdmin: user.isAdmin,
