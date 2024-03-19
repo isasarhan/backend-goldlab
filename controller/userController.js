@@ -7,7 +7,7 @@ const getAllUsers = asyncHandler(async (req, res) => {
 });
 const isUserExist = async (email) => {
   const checkUser = await User.findOne({ email: email });
-  if (checkUser !== null) return true;
+  if (checkUser) return true;
   return false;
 };
 const getUserById = asyncHandler(async (req, res) => {
