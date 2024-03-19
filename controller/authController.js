@@ -6,8 +6,8 @@ const { isUserExist } = require("./userController");
 const userRegister = asyncHandler(async (req, res) => {
   const { error } = validateUser(req.body);
   if (error) return res.json({ error: error.details[0].message }).status(400);
-
-  if (isUserExist(req.body.email)) 
+  const checkUser = await User.findOne({ email: req.body.email });
+  if (checkUser) 
   throw new Error("user already exist!");
   // return res.status(403).json({error:"user already exist"})
 

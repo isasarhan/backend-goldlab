@@ -5,11 +5,7 @@ const getAllUsers = asyncHandler(async (req, res) => {
   const users = await User.find();
   res.json(users);
 });
-const isUserExist = async (email) => {
-  const checkUser = await User.findOne({ email: email });
-  if (checkUser) return true;
-  return false;
-};
+
 const getUserById = asyncHandler(async (req, res) => {
   const user = await User.findById(req.params.id);
   if (!user) {
@@ -41,4 +37,4 @@ const updateUserById = asyncHandler(async (req, res) => {
   res.json(user).status(200);
 });
 
-module.exports = { getAllUsers, getUserById, updateUserById ,isUserExist};
+module.exports = { getAllUsers, getUserById, updateUserById};
