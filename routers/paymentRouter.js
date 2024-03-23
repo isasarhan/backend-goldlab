@@ -14,4 +14,4 @@ router.route("/customer/:id").get(getPaymentByCustomerId);
 router.route("/:id").get(getPaymentById);
 router.route("/").get(getAllPayments).post(addPayment);
 
-module.exports = router;
+module.exports = router; 

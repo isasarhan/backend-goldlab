@@ -14,7 +14,7 @@ const getPaymentById = asyncHandler(async (req, res) => {
   const payment = await Payment.findById(id);
   if (!payment) return res.send("payment not found!").status(404);
   res.json(payment).status(200);
-});
+}); 
 const getPaymentByCustomerId = asyncHandler(async (req, res) => {
   const id = req.params.id;
   const customer = await Customer.findById(id);
@@ -30,7 +30,7 @@ const getPaymentByCustomerIdBetweenDates = asyncHandler(async (req, res) => {
   console.log(req.query.startDate);
   const payments = await Payment.find(
     customerid
-      ? {
+      ? { 
           "customer.customerid": customerid,
           date: { $gte: startDate, $lte: endDate },
         }
