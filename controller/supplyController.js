@@ -19,8 +19,9 @@ const addSupply = asyncHandler(async (req, res) => {
       name: supplier.name,
       supplierid: req.body.supplierid,
     },
-    cash: req.body.cash,
     date: req.body.date,
+    perGram: req.body.perGram,
+    karat: req.body.karat,
     description: req.body.description,
     weight: req.body.weight,
   });
@@ -30,33 +31,40 @@ const addSupply = asyncHandler(async (req, res) => {
   res.json(result);
 });
 const getSupplyById = asyncHandler(async (req, res) => {
-    const id = req.params.id;
-    const supply = await Supply.findById(id);
-    if (!supply) return res.send("supply not found");
-    res.json(supply);
-  })
-
-const getSuppliesBySupplierId = asyncHandler(async(req,res)=>{
-    const id = req.params.id
-    const supply = await Supply.find({
-        "supplier.supplierid":id
-    })
-    if(!supply) return res.send("supplies not found")
-    res.json(supply)
-})
+  const id = req.params.id;
+  const supply = await Supply.findById(id);
+  if (!supply) return res.send("supply not found");
+  res.json(supply);
+});
+const getSuppliesBySupplierId = asyncHandler(async (req, res) => {
+  const id = req.params.id;
+  const supply = await Supply.find({
+    "supplier.supplierid": id,
+  });
+  if (!supply) return res.send("supplies not found");
+  res.json(supply);
+});
 const getSuppliesByDates = asyncHandler(async (req, res) => {
-    const startDate = new Date(req.query.startDate);
-    const endDate = new Date(req.query.endDate);
-   const supplierid = req.query.supplierid;
+  const startDate = new Date(req.query.startDate);
+  const endDate = new Date(req.query.endDate);
+  const supplierid = req.query.supplierid;
 
-    console.log(req.query);
-    const supplies = await Supply.find( supplierid?{ "supplier.supplierid": supplierid }:{})
-      .where("date")
-      .gte(startDate)
-      .lte(endDate);
-      console.log(supplies);
-      if(!supplies)
-      res.send("no supplies were found")
-    res.json(supplies)
-  })
-module.exports = { getSupplies,getSupplyById,getSuppliesByDates,getSuppliesBySupplierId, addSupply };
+  console.log(req.query);
+  const supplies = await Supply.find(
+    supplierid ? { "supplier.supplierid": supplierid } : {}
+  )
+    .where("date")
+    .gte(startDate)
+    .lte(endDate);
+  console.log(supplies);
+  if (!supplies) res.send("no supplies were found");
+  res.json(supplies);
+});
+
+module.exports = {
+  getSupplies,
+  getSupplyById,
+  getSuppliesByDates,
+  getSuppliesBySupplierId,
+  addSupply,
+};

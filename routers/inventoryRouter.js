@@ -5,15 +5,14 @@ const {
   getInventoryById,
   deleteInventoryById,
   updateInventory,
+  updateMainInventory,
+  getMainInventory,
 } = require("../controller/inventoryController");
 
 const router = express.Router();
 
-router.route("/").get(getInventories).post(addInventory);
 
-router
-  .route("/:id")
-  .get(getInventoryById)
-  .put(updateInventory)
-  .delete(deleteInventoryById);
+router.route("/main").put(updateMainInventory).get(getMainInventory);
+router.route("/:id").get(getInventoryById).delete(deleteInventoryById);
+router.route("/").get(getInventories).post(addInventory).put(updateInventory);
 module.exports = router;

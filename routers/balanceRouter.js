@@ -9,11 +9,11 @@ const {
   getBalanceByCustomerId,
 } = require("../controller/balanceController.js");
 
-router.get("/", getBalances).post("/", addNewBalance);
-router
-  .route("/:id")
-  .get(getBalanceById)
-  .put(updateBalance)
-  .delete(deleteBalance);
 router.route("/customer/:id").get(getBalanceByCustomerId)
+router
+.route("/:id")
+.get(getBalanceById)
+.put(updateBalance)
+.delete(deleteBalance);
+router.get("/", getBalances).post("/", addNewBalance);
 module.exports = router;

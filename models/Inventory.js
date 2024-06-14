@@ -6,7 +6,11 @@ const inventorySchema = new Schema({
   weight: { type: Number, default: 0 },
   cash: { type: Number, default: 0 },
 });
-
+inventorySchema.pre("update", async function (next) {
+  const inventory = this;
+  
+  next();
+});
 const Inventory = model("Inventory", inventorySchema);
 
 function validateInventory(inventory) {

@@ -6,9 +6,10 @@ dotenv.config();
 const cors = require("cors");
 app.use(cors());
 dbConnect();
-
 const path = require("path");
 const upload = require('./middleware/uploadMiddleware.js')
+
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.post("/api/upload", upload.single("file"), function (req, res) {
   console.log(req.file);

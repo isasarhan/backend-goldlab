@@ -7,6 +7,6 @@ const {
   updateUserById,
 } = require("../controller/userController");
 
-router.route("/").get(getAllUsers);
 router.route("/:id").get(getUserById).put(updateUserById);
+router.route("/").get(getAllUsers);
 module.exports = router;

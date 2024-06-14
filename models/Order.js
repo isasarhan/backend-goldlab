@@ -22,7 +22,7 @@ function validateOrder(order) {
     customerid: Joi.objectId().required(),
     weight: Joi.number(),
     karat: Joi.string(),
-    description: Joi.string(),
+    description: Joi.string().allow(),
     type: Joi.string(),
     perGram: Joi.number(),
     perItem: Joi.number(),

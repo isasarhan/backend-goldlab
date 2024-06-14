@@ -1,5 +1,4 @@
 const express = require("express");
-const { Supply, validateSupply } = require("../models/Supply");
 const {
   addSupply,
   getSupplies,
@@ -8,7 +7,6 @@ const {
   getSuppliesByDates,
 } = require("../controller/supplyController");
 const router = express.Router();
-
 router.route("/supplier/:id").get(getSuppliesBySupplierId);
 
 router.route("/dates").get(getSuppliesByDates);

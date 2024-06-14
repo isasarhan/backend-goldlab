@@ -32,21 +32,6 @@ const InvoiceSchema = new Schema({
   },
 });
 
-InvoiceSchema.pre("save", async function (next) {
-  const invoice = this;
-  if (!invoice.invoiceNumber) {
-    const lastInvoice = await invoice.constructor
-      .find({'customer.customerid':invoice.customer.customerid})
-      .limit(1)
-      .sort({ invoiceNumber: -1 });
-    if (lastInvoice.length !=0 && lastInvoice[0].invoiceNumber) {
-      invoice.invoiceNumber = lastInvoice[0].invoiceNumber + 1;
-    } else {
-      this.invoiceNumber = 1; // If no invoice exists, start from 1
-    }
-  }
-  next();
-});
 
 const Invoice = model("Invoice", InvoiceSchema);
 function validateInvoice(invoice) {

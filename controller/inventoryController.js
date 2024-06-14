@@ -5,6 +5,11 @@ const getInventories = asyncHandler(async (req, res) => {
   const result = await Inventory.find();
   res.json(result);
 });
+const getMainInventory = asyncHandler(async(req,res)=>{
+  let inventory = await Inventory.findOne().where({ name: "main" });
+  if (!inventory) return res.send("main inventory not found")
+  res.json(inventory)
+})
 const addInventory = asyncHandler(async (req, res) => {
   const { error } = validateInventory(req.body);
   if (error) return res.send(error.details[0].message);
@@ -33,21 +38,49 @@ const deleteInventoryById = asyncHandler(async (req, res) => {
   res.json(inventory);
 });
 const updateInventory = asyncHandler(async (req, res) => {
-    const id = req.params.id
-    const { error } = validateInventory(req.body);
-    if (error) return res.send(error.details[0].message);
-    const updated = await Inventory.findByIdAndUpdate(id,{
-        weight:req.body.weight,
-        cash:req.body.cash,
-        name:req.body.name,
-    }, {new:true})
-    if(!updated) return res.send("error updating inventory").status(400)
-    res.json(updated)
-  })
+  const { error } = validateInventory(req.body);
+  if (error) return res.send(error.details[0].message);
+  let inventory = await Inventory.findOne().where({ name: "main" });
+  if (!inventory) {
+    const invent = new Inventory({ name: "main" });
+    inventory = await invent.save();
+  }
+  const updated = await Inventory.findByIdAndUpdate(
+    inventory._id,
+    {
+      weight: req.body.weight,
+      cash: req.body.cash,
+    },
+    { new: true }
+  );
+  if (!updated) return res.send("error updating inventory").status(400);
+  res.json(updated);
+});
+const updateMainInventory = asyncHandler(async (req, res) => {
+  const { error } = validateInventory(req.body);
+  if (error) return res.send(error.details[0].message);
+  let inventory = await Inventory.findOne().where({ name: "main" });
+  if (!inventory) {
+    const invent = new Inventory({ name: "main" });
+    inventory = await invent.save();
+  }
+  const updated = await Inventory.findByIdAndUpdate(
+    inventory._id,
+    {
+      weight: inventory.weight + req.body.weight,
+      cash: inventory.cash + req.body.cash,
+    },
+    { new: true }
+  );
+  if (!updated) return res.send("error updating inventory").status(400);
+  res.json(updated);
+});
 module.exports = {
   getInventories,
+  getMainInventory,
   addInventory,
   getInventoryById,
   updateInventory,
+  updateMainInventory,
   deleteInventoryById,
 };

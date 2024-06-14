@@ -10,11 +10,11 @@ const {
 const { authenticate } = require("../middleware/authMiddleware.js");
 const { authorize } = require("../middleware/adminMiddleware.js");
 
-router.route("/").get(getAllCustomers).post(addNewCustomer);
 router
-  .route("/:id")
-  .get(getCustomerById)
-  .put(updateCustomer)
-  .delete(deleteCustomer);
+.route("/:id")
+.get(getCustomerById)
+.put(updateCustomer)
+.delete(deleteCustomer);
+router.route("/").get(getAllCustomers).post(addNewCustomer);
 
 module.exports = router;

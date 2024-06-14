@@ -25,7 +25,6 @@ const getSupplierById = asyncHandler(async (req, res) => {
     if (!supplier) return res.send("supplier not found");
     res.json(supplier).status(200);
   });
-
   const deleteSupplierById = asyncHandler(async (req, res) => {
     const id = req.params.id;
     const supplier = await Supplier.findByIdAndDelete(id);

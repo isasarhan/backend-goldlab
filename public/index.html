@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Routes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #333;
+        }
+        .container {
+            background: #fff;
+            padding: 20px 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            max-width: 600px;
+            text-align: center;
+        }
+        h1 {
+            color: #4CAF50;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            background: #e9ecef;
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 4px;
+            transition: background 0.3s;
+        }
+        li:hover {
+            background: #d4d8db;
+        }
+        a {
+            text-decoration: none;
+            color: #4c90da;
+            font-weight: bold;
+        } p{
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Available API Routes</h1>
+        <ul>
+            <li><a href="/api/customers">Customers route : /api/customers</a></li>
+            <li><a href="/api/auth/login">Login route : /api/auth</a></li>
+            <li><a href="/api/auth/register">Register route : /api/auth</a></li>
+            <li><a href="/api/users">Users route : /api/users</a></li>
+            <li><a href="/api/balances">Balances route : /api/balances</a></li>
+            <li><a href="/api/orders">Orders route : /api/orders</a></li>
+            <li><a href="/api/payments">Payments route : /api/payments</a></li>
+            <li><a href="/api/invoices">Invoices route : /api/invoices</a></li>
+            <li><a href="/api/inventory">Inventory route : /api/inventory</a></li>
+            <li><a href="/api/supplier">Supplier route : /api/supplier</a></li>
+            <li><a href="/api/supply">Supply route : /api/supply</a></li>
+        </ul>
+        <p>All CRUD operations are available</p>
+    </div>
+</body>
+</html>

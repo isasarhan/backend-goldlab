@@ -15,8 +15,8 @@ function validateCustomer(customer) {
     id: Joi.objectId(),
     cname: Joi.string().min(5),
     email: Joi.string().email(),
-    phone: Joi.string(),
-    location: Joi.string(),
+    phone: Joi.string().allow(),
+    location: Joi.string().allow(),
   });
   
   return schema.validate(customer);
